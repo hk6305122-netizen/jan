@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WalkTrack
 
-## Getting Started
+WalkTrack is a walking tracker app.
 
-First, run the development server:
+This repository is organized as a small monorepo:
+
+- `backend/` – Node.js + Express API server
+- `database/` – PostgreSQL migrations and reference schema
+- `mobile/` – React Native scaffolding (placeholder for now)
+- `config/` – environment configuration templates
+- `app/` – (existing) Next.js web app scaffold
+
+## Backend (Express)
+
+### 1) Configure environment
+
+Copy the example env file and update as needed:
+
+```bash
+cp config/.env.example config/.env
+```
+
+Set either `DATABASE_URL` **or** the individual `DB_*` variables.
+
+### 2) Install backend dependencies
+
+```bash
+cd backend
+npm install
+```
+
+### 3) Run database migrations
+
+```bash
+npm run migrate:up
+```
+
+### 4) Start the API
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The API will start on `http://localhost:4000` by default.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Health endpoints:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `GET /health` – basic process health
+- `GET /health/db` – verifies PostgreSQL connectivity (`SELECT 1`)
 
-## Learn More
+## Database
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `database/README.md` for migration details and `database/schema/schema.sql` for the current schema reference.

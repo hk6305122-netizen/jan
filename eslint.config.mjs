@@ -12,6 +12,12 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+
+    // This repository also contains non-Next.js code.
+    "backend/**",
+    "database/**",
+    "mobile/**",
+    "config/**",
   ]),
 ]);
 
